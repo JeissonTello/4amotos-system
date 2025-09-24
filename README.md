@@ -1,38 +1,50 @@
-# sv
+# A4Motos (CoCo) — Interfaz gráfica técnica
 
-Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
+Interfaz gráfica desarrollada como parte del proyecto didáctico **A4Motos (CoCo)**.  
+Esta entrega se enfoca exclusivamente en el diseño visual, estructura técnica y experiencia de usuario, incluyendo lógica funcional y conexión a base de datos.
 
-## Creating a project
+---
 
-If you're seeing this, you've probably already done this step. Congrats!
+## 🎯 Enfoque del proyecto
 
-```sh
-# create a new project in the current directory
-npx sv create
+- Diseño técnico puro con estética oscura y animaciones personalizadas
+- Navegación tipo consola con branding visual sólido
+- Secciones visuales: productos, cotización y panel admin
+- Animaciones tipo tren bala inspiradas en Tron
+- Layout responsivo y modular, preparado para escalar
 
-# create a new project in my-app
-npx sv create my-app
-```
+---
 
-## Developing
+## 🧩 Estructura del sistema
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+| Archivo | Descripción |
+|--------|-------------|
+| `+layout.svelte` | Estructura general del sistema: header técnico, slot dinámico y footer |
+| `+page.svelte` (productos) | Sección de repuestos con tarjetas técnicas y estela animada |
+| `+page.svelte` (cotización) | Formulario visual para cotizar repuestos con diseño técnico |
+| `+page.svelte` (admin) | Panel administrativo tipo consola con layout modular |
+| `app.css` | Animaciones personalizadas (`tren-bala`, `pulse`, `scan`) y estilos globales |
+| `Toast.svelte` | Componente visual para notificaciones técnicas |
 
-```sh
-npm run dev
+---
 
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
+## 🛠️ Tecnologías utilizadas
 
-## Building
+- [SvelteKit](https://kit.svelte.dev/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- HTML + CSS personalizado
 
-To create a production version of your app:
+---
 
-```sh
-npm run build
-```
+## 🎥 Video de sustentación
 
-You can preview the production build with `npm run preview`.
+📺 [Ver video de sustentación](https://youtu.be/IWm-MIGNvBo)
 
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
+> Explicación detallada del diseño visual, estructura técnica y recorrido por la interfaz.
+
+---
+
+## 👤 Autoría
+
+Proyecto académico desarrollado por **Jeisson**  
+Entrega: **Interfaz gráfica A4Motos (CoCo)** · Año: **2025**
