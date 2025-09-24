@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import Counter from './Counter.svelte';
 	import welcome from '$lib/images/svelte-welcome.webp';
 	import welcomeFallback from '$lib/images/svelte-welcome.png';
@@ -27,6 +27,27 @@
 
 	<Counter />
 </section>
+
+<section class="mt-16 bg-gray-900 text-white py-12 px-6 rounded-xl animate-fade-up">
+  <h2 class="text-3xl font-bold text-center mb-10 tracking-tight">🏍️ Colecciones por estilo de moto</h2>
+  <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-6xl mx-auto">
+    <div class="bg-gray-800 p-6 rounded-xl shadow hover:shadow-lg transition cursor-pointer">
+      <h3 class="text-xl font-semibold mb-2">Urbana</h3>
+      <p class="text-sm text-gray-300">Repuestos para motos de ciudad, confort y eficiencia.</p>
+    </div>
+    <div class="bg-gray-800 p-6 rounded-xl shadow hover:shadow-lg transition cursor-pointer">
+      <h3 class="text-xl font-semibold mb-2">Racing</h3>
+      <p class="text-sm text-gray-300">Componentes de alto rendimiento para velocidad y precisión.</p>
+    </div>
+    <div class="bg-gray-800 p-6 rounded-xl shadow hover:shadow-lg transition cursor-pointer">
+      <h3 class="text-xl font-semibold mb-2">Touring</h3>
+      <p class="text-sm text-gray-300">Repuestos para viajes largos, estabilidad y resistencia.</p>
+    </div>
+  </div>
+</section>
+
+
+
 
 <style>
 	section {

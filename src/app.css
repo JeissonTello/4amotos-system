@@ -1,4 +1,7 @@
-@import '@fontsource/fira-mono';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 
 :root {
 	--font-body:
@@ -15,18 +18,27 @@
 	--column-margin-top: 4rem;
 	font-family: var(--font-body);
 	color: var(--color-text);
+	--color-bg-dark: #000000;
+	--color-accent: #00ffff;
+	--color-glow: rgba(0, 255, 255, 0.3);
+	--color-text-light: #ffffff;
+
 }
 
 body {
-	min-height: 100vh;
-	margin: 0;
-	background-attachment: fixed;
-	background-color: var(--color-bg-1);
-	background-size: 100vw 100vh;
-	background-image:
-		radial-gradient(50% 50% at 50% 50%, rgba(255, 255, 255, 0.75) 0%, rgba(255, 255, 255, 0) 100%),
-		linear-gradient(180deg, var(--color-bg-0) 0%, var(--color-bg-1) 15%, var(--color-bg-2) 50%);
+  min-height: 100vh;
+  margin: 0;
+  background-image: url('/tron-grid.png');
+  background-size: cover;
+  background-blend-mode: overlay;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  color: var(--color-text-light);
+  background-color: var(--color-bg-dark);
 }
+
+
 
 h1,
 h2,
@@ -102,4 +114,135 @@ button:focus:not(:focus-visible) {
 	position: absolute;
 	width: 1px;
 	white-space: nowrap;
+}
+
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.4s ease-out;
+}
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-up {
+  animation: fade-up 0.5s ease-out both;
+}
+
+@keyframes scale-in {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+.animate-scale-in {
+  animation: scale-in 0.4s ease-out both;
+}
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-up {
+  animation: fade-up 0.5s ease-out both;
+}
+
+
+html { scroll-behavior: smooth; }
+
+@keyframes tren-bala {
+  0% {
+    transform: translateX(-120vw);
+    opacity: 0.1;
+  }
+  50% {
+    transform: translateX(50vw);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(120vw);
+    opacity: 0.1;
+  }
+}
+
+@keyframes tren-pulse {
+  0% {
+    transform: translateX(-120vw) scale(0.8);
+    opacity: 0.3;
+  }
+  50% {
+    transform: translateX(50vw) scale(1.4);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(120vw) scale(0.8);
+    opacity: 0.3;
+  }
+}
+
+@keyframes tren-particles {
+  0% {
+    transform: translateX(-120vw) scaleX(0.5);
+    opacity: 0.2;
+  }
+  50% {
+    transform: translateX(50vw) scaleX(1);
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateX(120vw) scaleX(0.5);
+    opacity: 0.2;
+  }
+}
+
+@keyframes tren-scan {
+  0% {
+    transform: translateX(-120vw);
+    opacity: 0.1;
+  }
+  50% {
+    transform: translateX(50vw);
+    opacity: 0.4;
+  }
+  100% {
+    transform: translateX(120vw);
+    opacity: 0.1;
+  }
+}
+
+.animate-tren-bala {
+  animation: tren-bala 2.6s ease-in-out infinite;
+}
+
+.animate-tren-pulse {
+  animation: tren-pulse 2.6s ease-in-out infinite;
+}
+
+.animate-tren-particles {
+  animation: tren-particles 1.8s ease-in-out infinite;
+}
+
+.animate-tren-scan {
+  animation: tren-scan 3s linear infinite;
+}
+
+
+.tron-glow {
+  background: linear-gradient(to right, var(--color-accent), transparent);
+  box-shadow: 0 0 12px var(--color-glow);
+}
+
+.logo-tron {
+  border: 2px solid var(--color-accent);
+  box-shadow: 0 0 20px var(--color-glow);
+  animation: scale-in 0.4s ease-out both;
 }

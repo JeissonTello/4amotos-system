@@ -21,3 +21,28 @@ Thumbs.db
 # Vite
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
+
+# Dependencias
+node_modules/
+npm-debug.log*
+
+# SvelteKit
+.svelte-kit/
+build/
+
+# Entorno
+.env
+.env.local
+.env.production
+
+# PocketBase
+pocketbase/pb_data/
+*.db
+
+# IDEs
+.vscode/
+.idea/
+
+# Sistema
+.DS_Store
+Thumbs.db

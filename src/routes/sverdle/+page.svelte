@@ -1,83 +1,62 @@
-<script>
-	import { enhance } from '$app/forms';
-	import { confetti } from '@neoconfetti/svelte';
+import { enhance } from '$app/forms';
+import { confetti } from '@neoconfetti/svelte';
+import { MediaQuery } from 'svelte/reactivity';
 
-	import { MediaQuery } from 'svelte/reactivity';
+<script lang="ts">
+    import { enhance } from '$app/forms';
+    import { confetti } from '@neoconfetti/svelte';
+    import { MediaQuery } from 'svelte/reactivity';
+    import type { ActionData, PageData } from './$types';
 
-	let { data, form = $bindable() } = $props();
+    export let data: PageData;
+    export let form: ActionData;
 
-	/** Whether the user prefers reduced motion */
-	const reducedMotion = new MediaQuery('(prefers-reduced-motion: reduce)');
+    const reducedMotion = new MediaQuery('(prefers-reduced-motion: reduce)');
 
-	/** Whether or not the user has won */
-	let won = $derived(data.answers.at(-1) === 'xxxxx');
+    let won = data.answers.at(-1) === 'xxxxx';
+    let i = won ? -1 : data.answers.length;
+    let currentGuess = data.guesses[i] || '';
+    let submittable = currentGuess.length === 5;
 
-	/** The index of the current guess */
-	let i = $derived(won ? -1 : data.answers.length);
+    const classnames: Record<string, 'exact' | 'close' | 'missing'> = {};
+    const description: Record<string, string> = {};
 
-	/** The current guess */
-	let currentGuess = $derived(data.guesses[i] || '');
+    data.answers.forEach((answer, index) => {
+        const guess = data.guesses[index];
+        for (let i = 0; i < 5; i++) {
+            const letter = guess[i];
+            if (answer[i] === 'x') {
+                classnames[letter] = 'exact';
+                description[letter] = 'correct';
+            } else if (!classnames[letter]) {
+                classnames[letter] = answer[i] === 'c' ? 'close' : 'missing';
+                description[letter] = answer[i] === 'c' ? 'present' : 'absent';
+            }
+        }
+    });
 
-	/** Whether the current guess can be submitted */
-	let submittable = $derived(currentGuess.length === 5);
+    function update(event: MouseEvent) {
+        event.preventDefault();
+        const key = (event.target as HTMLButtonElement).getAttribute('data-key');
 
-	const { classnames, description } = $derived.by(() => {
-		/**
-		 * A map of classnames for all letters that have been guessed,
-		 * used for styling the keyboard
-		 */
-		let classnames = {};
-		/**
-		 * A map of descriptions for all letters that have been guessed,
-		 * used for adding text for assistive technology (e.g. screen readers)
-		 */
-		let description = {};
-		data.answers.forEach((answer, i) => {
-			const guess = data.guesses[i];
-			for (let i = 0; i < 5; i += 1) {
-				const letter = guess[i];
-				if (answer[i] === 'x') {
-					classnames[letter] = 'exact';
-					description[letter] = 'correct';
-				} else if (!classnames[letter]) {
-					classnames[letter] = answer[i] === 'c' ? 'close' : 'missing';
-					description[letter] = answer[i] === 'c' ? 'present' : 'absent';
-				}
-			}
-		});
-		return { classnames, description };
-	});
+        if (key === 'backspace') {
+            currentGuess = currentGuess.slice(0, -1);
+            if (form?.badGuess) form.badGuess = false;
+        } else if (currentGuess.length < 5) {
+            currentGuess += key;
+        }
+    }
 
-	/**
-	 * Modify the game state without making a trip to the server,
-	 * if client-side JavaScript is enabled
-	 */
-	function update(event) {
-		event.preventDefault();
-		const key = (event.target).getAttribute('data-key');
+    function keydown(event: KeyboardEvent) {
+        if (event.metaKey) return;
+        if (event.key === 'Enter' && !submittable) return;
 
-		if (key === 'backspace') {
-			currentGuess = currentGuess.slice(0, -1);
-			if (form?.badGuess) form.badGuess = false;
-		} else if (currentGuess.length < 5) {
-			currentGuess += key;
-		}
-	}
-
-	/**
-	 * Trigger form logic in response to a keydown event, so that
-	 * desktop users can use the keyboard to play the game
-	 */
-	function keydown(event) {
-		if (event.metaKey) return;
-
-		if (event.key === 'Enter' && !submittable) return;
-
-		document
-			.querySelector(`[data-key="${event.key}" i]`)
-			?.dispatchEvent(new MouseEvent('click', { cancelable: true, bubbles: true }));
-	}
+        document
+            .querySelector(`[data-key="${event.key}" i]`)
+            ?.dispatchEvent(new MouseEvent('click', { cancelable: true, bubbles: true }));
+    }
 </script>
+
 
 <svelte:window onkeydown={keydown} />
 
